@@ -1,0 +1,17 @@
+{
+  "networks": [
+    {
+      "id": 1,
+      "ssid": "Ako plus",
+      "password": "Ran26Mar@",
+      "config": {
+        "method": "static",
+        "ipAddress": "192.168.1.64",
+        "subnet": "255.255.255.0",
+        "gateway": "192.168.1.1",
+        "dns": "8.8.8.8"
+      },
+      "isConnected": false
+    }
+  ]
+}
