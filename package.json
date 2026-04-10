@@ -10,8 +10,13 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "body-parser": "^2.2.2",
     "bootstrap": "^5.3.8",
-    "lucide-react": "^1.7.0",
+    "cors": "^2.8.6",
+    "express": "^5.2.1",
+    "fs": "^0.0.1-security",
+    "local-devices": "^4.0.0",
+    "lucide-react": "^1.8.0",
     "react": "^19.2.4",
     "react-dom": "^19.2.4",
     "react-router-dom": "^7.14.0"
