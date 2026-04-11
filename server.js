@@ -1,100 +1,148 @@
 import express from 'express';
 import cors from 'cors';
-import bodyParser from 'body-parser';
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
 
-// Configuration pour récupérer __dirname avec les ES Modules
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const app = express();
 const PORT = 5000;
-const DATA_FILE = path.join(__dirname, 'postes_enregistres.json');
 
-// --- MIDDLEWARES ---
 app.use(cors());
-app.use(bodyParser.json());
+app.use(express.json());
 
-// --- ROUTES ---
+const POSTES_FILE = path.join(__dirname, 'postes.json');
+const SESSIONS_FILE = path.join(__dirname, 'sessions_actives.json');
 
-// Récupérer la liste des postes
+// --- FONCTIONS UTILITAIRES ---
+const readData = (file) => {
+    try {
+        if (!fs.existsSync(file)) return [];
+        const data = fs.readFileSync(file, 'utf-8');
+        return JSON.parse(data || '[]');
+    } catch (error) {
+        console.error(`Erreur de lecture sur ${file}:`, error);
+        return [];
+    }
+};
+
+const saveData = (file, data) => {
+    try {
+        fs.writeFileSync(file, JSON.stringify(data, null, 2));
+    } catch (error) {
+        console.error(`Erreur d'écriture sur ${file}:`, error);
+    }
+};
+
+// --- ROUTES POSTES ---
 app.get('/api/postes', (req, res) => {
-    if (!fs.existsSync(DATA_FILE)) return res.json([]);
-    const data = fs.readFileSync(DATA_FILE, 'utf-8');
-    res.json(JSON.parse(data));
+    res.json(readData(POSTES_FILE));
 });
 
-// Ajouter un poste
-app.post('/api/postes/ajouter', (req, res) => {
-    const nouveauPoste = req.body;
-    let postes = [];
+// --- ROUTES SESSIONS ---
 
-    if (fs.existsSync(DATA_FILE)) {
-        postes = JSON.parse(fs.readFileSync(DATA_FILE, 'utf-8'));
+/**
+ * 1. RÉCUPÉRER TOUTES LES SESSIONS (C'est cette route dont Utiliser.jsx a besoin)
+ */
+app.get('/api/sessions', (req, res) => {
+    try {
+        const sessions = readData(SESSIONS_FILE);
+        // On renvoie les sessions triées par la plus récente en premier
+        const sessionsTriees = sessions.sort((a, b) => b.id - a.id);
+        res.json(sessionsTriees);
+    } catch (error) {
+        res.status(500).json({ error: "Impossible de récupérer les sessions" });
     }
-
-    const posteAvecId = {
-        id: Date.now(),
-        ...nouveauPoste,
-        dateAjout: new Date().toISOString()
-    };
-
-    postes.push(posteAvecId);
-    fs.writeFileSync(DATA_FILE, JSON.stringify(postes, null, 2));
-
-    res.status(201).json({ message: "Poste ajouté", poste: posteAvecId });
 });
 
-// Supprimer un poste par ID
-app.delete('/api/postes/:id', (req, res) => {
-    const { id } = req.params;
+/**
+ * 2. ENREGISTRER UNE NOUVELLE SESSION
+ */
+app.post('/api/sessions/demarrer', (req, res) => {
+    try {
+        const sessions = readData(SESSIONS_FILE);
+        const nouvelleSession = {
+            id: Date.now(),
+            ...req.body,
+            status: 'En cours', // On force le statut au démarrage
+            timestamp_systeme: new Date().toISOString()
+        };
 
-    if (!fs.existsSync(DATA_FILE)) return res.status(404).json({ message: "Fichier non trouvé" });
+        sessions.push(nouvelleSession);
+        saveData(SESSIONS_FILE, sessions);
 
-    let postes = JSON.parse(fs.readFileSync(DATA_FILE, 'utf-8'));
-    const initialLength = postes.length;
-
-    // On garde tous les postes SAUF celui qui a l'ID correspondant
-    postes = postes.filter(p => p.id !== parseInt(id));
-
-    if (postes.length === initialLength) {
-        return res.status(404).json({ message: "Poste non trouvé" });
+        console.log(`[SESSION] Poste ${nouvelleSession.nomAppareil} activé.`);
+        res.status(201).json(nouvelleSession);
+    } catch (error) {
+        res.status(500).json({ error: "Erreur lors du démarrage" });
     }
-
-    fs.writeFileSync(DATA_FILE, JSON.stringify(postes, null, 2));
-    res.json({ message: "Poste supprimé avec succès" });
 });
 
-// Scanner (Simulation)
-app.get('/api/scanner', (req, res) => {
-    res.json([
-        { name: "PC-ADMIN", ip: "192.168.1.10", mac: "00:1A:2B:3C:4D:5E" },
-        { name: "SAMSUNG-S24", ip: "192.168.1.15", mac: "AA:BB:CC:DD:EE:FF" }
-    ]);
+/**
+ * 3. TERMINER UNE SESSION (Optionnel mais recommandé)
+ */
+app.put('/api/sessions/terminer/:id', (req, res) => {
+    try {
+        let sessions = readData(SESSIONS_FILE);
+        sessions = sessions.map(s =>
+            s.id === parseInt(req.params.id) ? { ...s, status: 'Terminé' } : s
+        );
+        saveData(SESSIONS_FILE, sessions);
+        res.json({ message: "Session terminée" });
+    } catch (error) {
+        res.status(500).json({ error: "Erreur lors de la fermeture" });
+    }
 });
 
 app.listen(PORT, () => {
-    console.log(`🚀 Serveur actif sur http://localhost:${PORT}`);
+    console.log(`✅ Serveur de gestion Wi-Fi sur http://localhost:${PORT}`);
 });
 
-app.post('/api/postes/ajouter', (req, res) => {
-    const nouveauPoste = req.body;
-    const filePath = './postes_enregistres.json';
+// Supprimer une session de l'historique
+app.delete('/api/sessions/:id', (req, res) => {
+    try {
+        let sessions = readData(SESSIONS_FILE);
+        const initialLength = sessions.length;
 
-    // Lire le fichier actuel ou créer un tableau vide
-    let data = [];
-    if (fs.existsSync(filePath)) {
-        const fileContent = fs.readFileSync(filePath);
-        data = JSON.parse(fileContent);
+        // On filtre pour garder tout sauf l'ID concerné
+        sessions = sessions.filter(s => s.id !== parseInt(req.params.id));
+
+        if (sessions.length === initialLength) {
+            return res.status(404).json({ error: "Session non trouvée" });
+        }
+
+        saveData(SESSIONS_FILE, sessions);
+        res.json({ message: "Session supprimée avec succès" });
+    } catch (error) {
+        res.status(500).json({ error: "Erreur lors de la suppression" });
     }
+});
 
-    // Ajouter le nouveau poste avec un ID et une date
-    data.push({ ...nouveauPoste, id: Date.now(), dateAjout: new Date() });
+// Route pour stopper le compteur (terminer la session)
+app.put('/api/sessions/terminer/:id', (req, res) => {
+    try {
+        let sessions = readData(SESSIONS_FILE);
+        const index = sessions.findIndex(s => s.id === parseInt(req.params.id));
 
-    // Sauvegarder dans le fichier
-    fs.writeFileSync(filePath, JSON.stringify(data, null, 2));
+        if (index !== -1) {
+            // On change le statut pour arrêter le compteur
+            sessions[index].status = "Terminé";
 
-    res.status(200).send({ message: "Poste ajouté !" });
+            // On enregistre l'heure exacte de l'arrêt
+            sessions[index].finHeureReelle = new Date().toLocaleTimeString('fr-FR', {
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit'
+            });
+
+            saveData(SESSIONS_FILE, sessions);
+            res.json({ message: "Compteur stoppé", session: sessions[index] });
+        } else {
+            res.status(404).json({ error: "Session non trouvée" });
+        }
+    } catch (error) {
+        res.status(500).json({ error: "Erreur serveur" });
+    }
 });
