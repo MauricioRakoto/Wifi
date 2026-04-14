@@ -1,4 +1,5 @@
 import React from 'react';
+import { UserCircle } from 'lucide-react';
 // On utilise NavLink à la place de Link
 import { BrowserRouter as Router, Routes, Route, NavLink } from 'react-router-dom';
 import { LayoutDashboard, Monitor, PlayCircle, BarChart3, Wifi } from 'lucide-react';
@@ -52,20 +53,28 @@ function App() {
                     </aside>
 
                     <main className="flex-grow-1 bg-light d-flex flex-column">
-                        <header className="bg-white border-bottom p-3 d-flex justify-content-end align-items-center shadow-sm">
-                            <div className="badge bg-success-subtle text-success border border-success-subtle rounded-pill px-3 py-2 d-flex align-items-center">
-                                <span className="spinner-grow spinner-grow-sm me-2" role="status"></span>
-                                Serveur Connecté : 5000
+                        <header
+                            className="bg-white  p-3 d-flex justify-content-end align-items-center ">
+                            <div className="d-flex align-items-center gap-2 bg-light px-3 py-1  ">
+                                {/* Icône stylisée */}
+                                <UserCircle size={24} className="text-primary"/>
+
+                                {/* h4 avec typographie affinée */}
+                                <h4 className="m-0 fw-bold text-dark"
+                                    style={{fontSize: '0.95rem', letterSpacing: '0.5px'}}>
+                                    Administrateur
+                                </h4>
                             </div>
                         </header>
 
                         <div className="container-fluid p-4">
                             <div className="bg-white rounded-4 shadow-sm p-4" style={{minHeight: '85vh'}}>
                                 <Routes>
-                                    <Route path="/" element={<Home />} />
-                                    <Route path="/postes" element={<Postes />} />
-                                    <Route path="/utiliser" element={<Utiliser />}/>
-                                    <Route path="/stats" element={<div className="p-4">📊 Interface Stats en cours...</div>} />
+                                    <Route path="/" element={<Home/>}/>
+                                    <Route path="/postes" element={<Postes/>}/>
+                                    <Route path="/utiliser" element={<Utiliser/>}/>
+                                    <Route path="/stats"
+                                           element={<div className="p-4">📊 Interface Stats en cours...</div>}/>
                                 </Routes>
                             </div>
                         </div>

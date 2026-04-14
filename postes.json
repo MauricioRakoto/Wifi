@@ -1,8 +1,16 @@
 [
   {
-    "id": 1775912502320,
-    "nom": "PC",
+    "id": 1776178729314,
+    "nom": "ASUS",
     "type": "Laptop",
-    "systeme": "Windows"
+    "systeme": "Windows ",
+    "status": "Disponible"
+  },
+  {
+    "id": 1776178738728,
+    "nom": "Phone",
+    "type": "Laptop",
+    "systeme": "Windows 10",
+    "status": "Disponible"
   }
 ]

@@ -29,7 +29,7 @@
     "dateUtiliser": "11/04/2026",
     "debutHeure": "17:10",
     "finHeure": "17:11",
-    "status": "En cours",
+    "status": "Terminé",
     "timestamp_systeme": "2026-04-11T14:10:01.143Z"
   },
   {
@@ -42,5 +42,23 @@
     "finHeure": "Illimitée",
     "status": "Terminé",
     "timestamp_systeme": "2026-04-11T15:19:12.188Z"
+  },
+  {
+    "id": 1776178330731,
+    "nomAppareil": "ASUS",
+    "debutHeure": "17:52",
+    "finHeure": "18:22",
+    "dureeSelectionnee": "Libre",
+    "status": "En cours",
+    "dateUtiliser": "14/04/2026"
+  },
+  {
+    "id": 1776178746581,
+    "nomAppareil": "ASUS",
+    "debutHeure": "17:59",
+    "finHeure": "18:14",
+    "dureeSelectionnee": "Libre",
+    "status": "En cours",
+    "dateUtiliser": "14/04/2026"
   }
 ]
