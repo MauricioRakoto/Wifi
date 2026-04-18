@@ -13,27 +13,28 @@ export const getAllSessions = (req, res) => {
 };
 
 /**
- * MÉTHODE : handleStartSession
- * Crée et démarre une nouvelle session pour un poste
+ * Démarre une nouvelle session
  */
 export const handleStartSession = (req, res) => {
     try {
         const sessions = readData(SESSIONS_FILE);
         const { nomAppareil, debutHeure, finHeure, dureeSelectionnee } = req.body;
 
-        // Validation simple
         if (!nomAppareil || !debutHeure) {
-            return res.status(400).json({ error: "Données manquantes pour démarrer la session" });
+            return res.status(400).json({ error: "Données manquantes" });
         }
 
         const nouvelleSession = {
-            id: Date.now(),
+            id: Date.now(), // ID unique basé sur le timestamp
             nomAppareil,
             debutHeure,
             finHeure: finHeure || "Illimitée",
             dureeSelectionnee: dureeSelectionnee || "Libre",
             status: "En cours",
-            dateUtiliser: new Date().toLocaleDateString('fr-FR')
+            // On initialise les valeurs de fin à vide ou 0
+            prixTotal: 0,
+            volumeTotal: "0.000",
+            createdAt: new Date().toISOString()
         };
 
         sessions.push(nouvelleSession);
@@ -41,51 +42,54 @@ export const handleStartSession = (req, res) => {
 
         res.status(201).json(nouvelleSession);
     } catch (error) {
-        console.error("Erreur startSession:", error);
-        res.status(500).json({ error: "Erreur interne lors du démarrage" });
+        res.status(500).json({ error: "Erreur lors du démarrage" });
     }
 };
 
 /**
- * MÉTHODE : terminateSession
- * Arrête le compteur en changeant le statut à "Terminé"
+ * Terminer une session (Celle appelée par handleTerminate du Frontend)
  */
 export const terminateSession = (req, res) => {
+    const { id } = req.params;
+    const updateData = req.body;
+
     try {
         let sessions = readData(SESSIONS_FILE);
-        const id = parseInt(req.params.id);
-        const index = sessions.findIndex(s => s.id === id);
+
+        // Utilisation de == pour comparer string (params) et number (id)
+        const index = sessions.findIndex(s => s.id == id);
 
         if (index !== -1) {
-            sessions[index].status = "Terminé";
-            // On enregistre l'heure réelle de fin
-            sessions[index].finHeureReelle = new Date().toLocaleTimeString('fr-FR', {
-                hour: '2-digit',
-                minute: '2-digit'
-            });
+            // Mise à jour de la session avec les calculs envoyés par le front
+            sessions[index] = {
+                ...sessions[index],
+                ...updateData,
+                status: 'Terminé'
+            };
 
             saveData(SESSIONS_FILE, sessions);
-            res.json({ message: "Compteur arrêté", session: sessions[index] });
-        } else {
-            res.status(404).json({ error: "Session non trouvée" });
+            return res.status(200).json({ message: "Session terminée et enregistrée" });
         }
+
+        res.status(404).json({ message: "Session non trouvée" });
     } catch (error) {
-        res.status(500).json({ error: "Erreur lors de l'arrêt de la session" });
+        console.error("Erreur terminateSession:", error);
+        res.status(500).json({ error: "Erreur technique lors de la clôture" });
     }
 };
 
 /**
- * Supprime une session de l'historique
+ * Supprime une session
  */
 export const deleteSession = (req, res) => {
     try {
         let sessions = readData(SESSIONS_FILE);
-        const id = parseInt(req.params.id);
+        const id = req.params.id;
 
-        const filteredSessions = sessions.filter(s => s.id !== id);
+        const filteredSessions = sessions.filter(s => s.id != id);
         saveData(SESSIONS_FILE, filteredSessions);
 
-        res.json({ message: "Session supprimée avec succès" });
+        res.json({ message: "Session supprimée" });
     } catch (error) {
         res.status(500).json({ error: "Erreur lors de la suppression" });
     }

@@ -22,7 +22,8 @@ router.post('/start', handleStartSession);
 
 /**
  * @route   PUT /api/sessions/terminer/:id
- * @desc    Stopper le compteur de temps (changer statut en "Terminé")
+ * @desc    Stopper le compteur de temps et enregistrer prix/volume
+ * @note    Correction : On utilise directement la fonction importée
  */
 router.put('/terminer/:id', terminateSession);
 

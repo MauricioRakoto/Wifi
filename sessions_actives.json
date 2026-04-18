@@ -44,21 +44,67 @@
     "timestamp_systeme": "2026-04-11T15:19:12.188Z"
   },
   {
-    "id": 1776178330731,
-    "nomAppareil": "ASUS",
-    "debutHeure": "17:52",
-    "finHeure": "18:22",
+    "id": 1776506922636,
+    "nomAppareil": "Iphone",
+    "debutHeure": "13:08",
+    "finHeure": "Illimitée",
     "dureeSelectionnee": "Libre",
-    "status": "En cours",
-    "dateUtiliser": "14/04/2026"
+    "status": "Terminé",
+    "dateUtiliser": "18/04/2026",
+    "finHeureReelle": "13:11"
   },
   {
-    "id": 1776178746581,
-    "nomAppareil": "ASUS",
-    "debutHeure": "17:59",
-    "finHeure": "18:14",
+    "id": 1776509493273,
+    "nomAppareil": "Asus",
+    "debutHeure": "13:51",
+    "finHeure": "14:06",
+    "dureeSelectionnee": "Libre",
+    "status": "Terminé",
+    "dateUtiliser": "18/04/2026",
+    "finHeureReelle": "14:02"
+  },
+  {
+    "id": 1776509497752,
+    "nomAppareil": "Dell",
+    "debutHeure": "13:51",
+    "finHeure": "14:21",
+    "dureeSelectionnee": "Libre",
+    "status": "Terminé",
+    "dateUtiliser": "18/04/2026",
+    "finHeureReelle": "15:02"
+  },
+  {
+    "id": 1776509501882,
+    "nomAppareil": "Iphone",
+    "debutHeure": "13:51",
+    "finHeure": "17:22",
+    "dureeSelectionnee": "Libre",
+    "status": "Terminé",
+    "dateUtiliser": "18/04/2026",
+    "dureeMinutes": 211,
+    "prixTotal": 7385,
+    "volumeTotal": "0.309",
+    "createdAt": "2026-04-18T14:22:20.401Z"
+  },
+  {
+    "id": 1776513894823,
+    "nomAppareil": "Iphone",
+    "debutHeure": "15:04",
+    "finHeure": "16:04",
+    "dureeSelectionnee": "Libre",
+    "status": "Terminé",
+    "dateUtiliser": "18/04/2026",
+    "finHeureReelle": "15:05"
+  },
+  {
+    "id": 1776522313637,
+    "nomAppareil": "Asus",
+    "debutHeure": "17:25",
+    "finHeure": "18:25",
     "dureeSelectionnee": "Libre",
     "status": "En cours",
-    "dateUtiliser": "14/04/2026"
+    "prixTotal": 0,
+    "volumeTotal": "0.000",
+    "createdAt": "2026-04-18T14:25:13.637Z"
   }
 ]
