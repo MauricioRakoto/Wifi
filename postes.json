@@ -1,16 +1,16 @@
 [
   {
-    "id": 1776522288784,
-    "nom": "Iphone",
+    "id": 1776666084052,
+    "nom": "Phone 1",
     "type": "Laptop",
-    "systeme": "Windows 10",
+    "systeme": "Android",
     "status": "Disponible"
   },
   {
-    "id": 1776522300677,
-    "nom": "Asus",
+    "id": 1776666100246,
+    "nom": "Phone 2",
     "type": "Laptop",
-    "systeme": "Windows 10",
+    "systeme": "Android",
     "status": "Disponible"
   }
 ]

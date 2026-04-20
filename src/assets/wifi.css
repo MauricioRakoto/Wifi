@@ -1,0 +1,25 @@
+.navwifi {
+    width: 250px;
+    background: #4b1c71;
+}
+
+.navwifi a {
+    height: 40px;
+    margin-bottom: 10px;
+}
+
+main {
+    background: #bfd7ed;
+}
+
+main header {
+    background: none;
+}
+
+main .wifi {
+    background: #60a3d9;
+}
+
+main .card-stats {
+    background: #7;
+}

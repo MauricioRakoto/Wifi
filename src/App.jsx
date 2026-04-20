@@ -6,6 +6,8 @@ import Postes from "./components/Postes.jsx";
 import Utiliser from "./components/Utiliser.jsx";
 import Stats from "./components/Stats.jsx";
 
+import wifiIcon from '../src/assets/img/wifi.png';
+
 function App() {
     const [isLoading, setIsLoading] = useState(true);
 
@@ -25,8 +27,8 @@ function App() {
         return (
             <div className="d-flex flex-column align-items-center justify-content-center" style={{ height: '100vh', backgroundColor: '#f8f9fa' }}>
                 <div className="position-relative d-flex align-items-center justify-content-center mb-4">
-                    <div className="bg-primary p-4 rounded-5 shadow-lg animate-bounce">
-                        <Wifi size={60} className="text-white" />
+                    <div className="p-4 rounded-5 shadow-lg animate-bounce">
+                        <img src={wifiIcon} alt=""/>
                     </div>
                 </div>
                 <h2 className="fw-bold text-dark mb-2">Wifi<span className="text-primary">Manager</span></h2>
@@ -47,12 +49,12 @@ function App() {
             <div className="container-fluid p-0">
                 <div className="d-flex" style={{ minHeight: '100vh' }}>
                     {/* Sidebar */}
-                    <aside className="bg-primary text-white shadow" style={{width: '280px', display: 'flex', flexDirection: 'column'}}>
+                    <aside className="navwifi text-white shadow" style={{display: 'flex', flexDirection: 'column'}}>
                         <div className="p-4 d-flex align-items-center gap-3 border-bottom border-light border-opacity-25">
                             <div className="bg-white p-2 rounded-3 text-primary d-flex align-items-center">
-                                <Wifi size={24}/>
+                                <img style={{width: '30px', height: '30px'}} src={wifiIcon} alt=""/>
                             </div>
-                            <h1 className="h4 m-0 fw-bold tracking-tight">Wifi<span className="fw-light">Manager</span></h1>
+                            <h1 style={{fontSize: '25px', fontWeight: '500'}} >Wifi Manager</h1>
                         </div>
 
                         <nav className="nav flex-column p-3 gap-2">
@@ -68,16 +70,16 @@ function App() {
                     </aside>
 
                     {/* Main Content */}
-                    <main className="flex-grow-1 bg-light d-flex flex-column">
-                        <header className="bg-white p-3 d-flex justify-content-end align-items-center border-bottom shadow-sm">
-                            <div className="d-flex align-items-center gap-2 bg-light px-3 py-1 rounded-pill">
+                    <main className="flex-grow-1 d-flex flex-column">
+                        <header className="p-3 d-flex justify-content-end align-items-center border-bottom shadow-sm">
+                            <div className="d-flex align-items-center gap-2 px-3 py-1 rounded-pill">
                                 <UserCircle size={24} className="text-primary"/>
                                 <h4 className="m-0 fw-bold text-dark" style={{fontSize: '0.95rem'}}>Administrateur</h4>
                             </div>
                         </header>
 
                         <div className="container-fluid p-4">
-                            <div className="bg-white rounded-4 shadow-sm p-4 animate-fade-in" style={{minHeight: '85vh'}}>
+                            <div className="wifi rounded-4 shadow-sm p-2 animate-fade-in" style={{minHeight: '85vh'}}>
                                 <Routes>
                                     <Route path="/" element={<Home/>}/>
                                     <Route path="/postes" element={<Postes/>}/>

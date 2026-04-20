@@ -48,15 +48,15 @@ const Home = () => {
     };
 
     return (
-        <div className="p-4">
+        <div className="">
 
             {/* --- SECTION DIVISIONS (Statistiques) --- */}
             <div className="row g-4 mb-5">
                 <div className="col-md-4">
-                    <div className="card border-0 shadow-sm rounded-4 p-4 bg-white">
+                    <div className="card card-stats border-0 shadow-sm rounded-4 p-4">
                         <div className="d-flex justify-content-between align-items-center">
 
-                            <div className="p-3 bg-primary bg-opacity-10 rounded-4 text-primary">
+                            <div className="p-3 bg-opacity-10 rounded-4">
                                 <Monitor size={28}/>
                             </div>
 
@@ -70,32 +70,33 @@ const Home = () => {
 
                 <div className="col-md-4">
                     <div
-                        className="card border-0 shadow-sm rounded-4 p-4 bg-white border-start border-success border-4">
+                        className="card card-stats border-0 shadow-sm rounded-4 p-4 border-4">
                         <div className="d-flex justify-content-between align-items-center">
 
-                            <div className="p-3 bg-success bg-opacity-10 rounded-4 text-success">
+                            <div className="p-3 bg-opacity-10 rounded-4">
                                 <Activity size={28}/>
                             </div>
 
                             <div>
                                 <h6 className="text-muted text-uppercase small fw-bold">Actifs</h6>
-                                <h2 className="fw-bold mb-0 text-success">{stats.actifs}</h2>
+                                <h2 className="fw-bold mb-0 ">{stats.actifs}</h2>
                             </div>
                         </div>
                     </div>
                 </div>
 
+
                 <div className="col-md-4">
-                    <div className="card border-0 shadow-sm rounded-4 p-4 bg-white border-start border-info border-4">
+                    <div className="card card-stats border-0 shadow-sm rounded-4 p-4  ">
                         <div className="d-flex justify-content-between align-items-center">
 
-                            <div className="p-3 bg-info bg-opacity-10 rounded-4 text-info">
+                            <div className="p-3 bg-opacity-10 rounded-4">
                                 <Database size={28}/>
                             </div>
 
                             <div>
                                 <h6 className="text-muted text-uppercase small fw-bold">Volumes</h6>
-                                <h2 className="fw-bold mb-0 text-info">{stats.volumeTotal}</h2>
+                                <h2 className="fw-bold mb-0">{stats.volumeTotal}</h2>
                             </div>
                         </div>
                     </div>
