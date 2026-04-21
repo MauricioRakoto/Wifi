@@ -53,7 +53,7 @@ const Home = () => {
             {/* --- SECTION DIVISIONS (Statistiques) --- */}
             <div className="row g-4 mb-5">
                 <div className="col-md-4">
-                    <div className="card card-stats border-0 shadow-sm rounded-4 p-4">
+                    <div className="card card-stats rounded-4 p-4">
                         <div className="d-flex justify-content-between align-items-center">
 
                             <div className="p-3 bg-opacity-10 rounded-4">
@@ -61,8 +61,8 @@ const Home = () => {
                             </div>
 
                             <div>
-                                <h6 className="text-muted text-uppercase small fw-bold">Postes </h6>
-                                <h2 className="fw-bold mb-0 text-dark">{stats.totalPostes}</h2>
+                                <h3 className="small fw-bold">Postes </h3>
+                                <h2 className="fw-bold mb-0">{stats.totalPostes}</h2>
                             </div>
                         </div>
                     </div>
@@ -70,15 +70,15 @@ const Home = () => {
 
                 <div className="col-md-4">
                     <div
-                        className="card card-stats border-0 shadow-sm rounded-4 p-4 border-4">
+                        className="card card-stats rounded-4 p-4 ">
                         <div className="d-flex justify-content-between align-items-center">
 
-                            <div className="p-3 bg-opacity-10 rounded-4">
+                            <div className="p-3 bg-opacity-10 ">
                                 <Activity size={28}/>
                             </div>
 
                             <div>
-                                <h6 className="text-muted text-uppercase small fw-bold">Actifs</h6>
+                                <h3 className="small fw-bold">Actifs</h3>
                                 <h2 className="fw-bold mb-0 ">{stats.actifs}</h2>
                             </div>
                         </div>
@@ -87,7 +87,7 @@ const Home = () => {
 
 
                 <div className="col-md-4">
-                    <div className="card card-stats border-0 shadow-sm rounded-4 p-4  ">
+                    <div className="card card-stats  rounded-4 p-4  ">
                         <div className="d-flex justify-content-between align-items-center">
 
                             <div className="p-3 bg-opacity-10 rounded-4">
@@ -95,7 +95,7 @@ const Home = () => {
                             </div>
 
                             <div>
-                                <h6 className="text-muted text-uppercase small fw-bold">Volumes</h6>
+                                <h3 className="small fw-bold">Volumes</h3>
                                 <h2 className="fw-bold mb-0">{stats.volumeTotal}</h2>
                             </div>
                         </div>
@@ -104,71 +104,70 @@ const Home = () => {
             </div>
 
             {/* --- NAVIGATION / ONGLETS --- */}
-            <div className="d-flex gap-3 mb-4 bg-light p-2 rounded-4 w-fit-content">
+            <div className="session-nav d-flex gap-3 mb-4 p-2 rounded-4 w-fit-content">
                 <button
                     onClick={() => setView('active')}
-                    className={`btn rounded-3 px-4 fw-bold d-flex align-items-center gap-2 ${view === 'active' ? 'btn-primary shadow' : 'btn-light text-muted'}`}
+                    className={`btn rounded-3 px-4 fw-bold d-flex  gap-2 ${view === 'active' ? 'btn-true ' : ''}`}
                 >
-                    <Play size={16} /> En cours
+                    <Play size={16}/> En cours
                 </button>
                 <button
                     onClick={() => setView('termine')}
-                    className={`btn rounded-3 px-4 fw-bold d-flex align-items-center gap-2 ${view === 'termine' ? 'btn-success shadow' : 'btn-light text-muted'}`}
+                    className={`btn rounded-3 px-4 fw-bold d-flex  gap-2 ${view === 'termine' ? 'btn-false ' : ''}`}
                 >
-                    <CheckCircle size={16} /> Terminé
+                    <CheckCircle size={16}/> Terminé
                 </button>
             </div>
 
             {/* --- TABLEAU DES DONNÉES --- */}
-            <div className="card border-0 shadow-sm rounded-4 overflow-hidden">
-                <div className="table-responsive">
-                    <table className="table table-hover align-middle mb-0">
-                        <thead className="bg-light text-muted small">
-                        <tr>
-                            <th className="px-4 py-3 border-0">Appareil</th>
-                            <th className="py-3 border-0">Début</th>
-                            <th className="py-3 border-0">Fin</th>
-                            <th className="py-3 border-0 text-center">Durée</th>
-
-                        </tr>
-                        </thead>
-                        <tbody>
-                        {filteredSessions.length === 0 ? (
-                            <tr>
-                                <td colSpan="4" className="text-center py-5 text-muted">
-                                    Aucune session {view === 'active' ? 'en cours' : 'terminée'}.
-                                </td>
-                            </tr>
-                        ) : (
-                            filteredSessions.map((session) => (
-                                <tr key={session.id}>
-                                    <td className="px-4 py-3 fw-bold">
-                                        <div className="d-flex align-items-center gap-2">
-                                            <div className={`p-1 rounded-circle ${view === 'active' ? 'bg-success' : 'bg-secondary'}`} style={{width: '8px', height: '8px'}}></div>
-                                            {session.nomAppareil}
-                                        </div>
-                                    </td>
-                                    <td className="py-3">
-                                        <div
-                                            className="small text-muted">{session.debutHeure}</div>
-                                    </td>
-                                    <td className="py-3">
-                                        <div className="small text-muted">{session.finHeure}</div>
-                                    </td>
-                                    <td className="py-3 text-center">
-                                        <div className="small text-muted">{calculerDuree(session.debutHeure, session.finHeure)}</div>
-
-                                    </td>
-
-                                </tr>
-                            ))
-                        )}
-                        </tbody>
-                    </table>
+            <div className="data-session">
+                {/* En-tête des colonnes (Masqué sur mobile) */}
+                <div className="row sh px-4 py-2 text-muted small fw-normal d-none d-md-flex  mb-2">
+                    <div className="col-1">#</div>
+                    <div className="col-4">Appareil</div>
+                    <div className="col-2 text-center">Début</div>
+                    <div className="col-2 text-center">Fin</div>
+                    <div className="col-3 text-end px-4">Durée</div>
                 </div>
+
+                {/* Corps des données */}
+                {filteredSessions.length === 0 ? (
+                    <div className="text-center py-5 text-muted bg-light rounded-4">
+                        Aucune session {view === 'active' ? 'en cours' : 'terminée'}.
+                    </div>
+                ) : (
+
+                    <div className="row sb session px-4 py-2   fw-normal d-none d-md-flex  mb-2">
+                        {filteredSessions.map((session, index) => (
+                            <div key={session.id}
+                                className="row " >
+                                <div className="col-1">
+                                    <h4>{index + 1}</h4>
+                                </div>
+                                <div className="col-4">
+                                    <h4>{session.nomAppareil}</h4>
+                                </div>
+                                <div className="col-2 text-center">
+                                    <h4>{session.debutHeure}</h4>
+                                </div>
+                                <div className="col-2 text-center">
+                                    <h4>{session.finHeure}</h4>
+                                </div>
+                                <div className="col-3 text-end px-4">
+                                    <h4>{calculerDuree(session.debutHeure, session.finHeure)}</h4>
+                                </div>
+                            </div>
+
+
+
+                ))}
             </div>
+            )}
         </div>
-    );
+
+</div>
+)
+    ;
 };
 
 export default Home;

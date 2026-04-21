@@ -21,5 +21,106 @@ main .wifi {
 }
 
 main .card-stats {
-    background: #7;
+    background: none;
+    border: 2px solid #7f4ca5;
 }
+
+main .card-stats h3 {
+    font-size: 25px;
+}
+
+main .card-stats h2 {
+    font-size: 23px;
+}
+
+.session-nav button {
+    width: 150px;
+    height: 40px;
+    font-size: 14px;
+    background: none;
+    border: none;
+}
+
+
+.session-nav button.btn-true,
+.session-nav button.btn-false {
+    position: relative;
+}
+
+.session-nav button.btn-true::after,
+.session-nav button.btn-false::after{
+    content: '';
+    position: absolute;
+    left: 0;
+    width: 100%;
+    bottom: 0;
+    height: 3px;
+}
+
+.session-nav button.btn-true::after,
+.session-nav button.btn-false::after {
+    background: #4b1c71;
+    color: #4b1c71;
+}
+
+.session-nav button:hover {
+    background: none;
+}
+
+.table-session {
+    border-radius: 3px;
+}
+
+.table-session,
+.table-session > :not(caption) > * > * {
+    background-color: transparent !important;
+    background: none !important;
+    --bs-table-bg: transparent; /* Annule la variable de couleur Bootstrap 5 */
+    --bs-table-accent-bg: transparent;
+}
+
+/* Applique la bordure au contour et aux cellules */
+.table-session,
+.table-session th,
+.table-session td {
+    border: 1px solid #4b1c71 !important;
+}
+
+/* Optionnel : Si vous voulez que les bordures soient fines et fusionnées */
+.table-session {
+    border-collapse: collapse !important;
+    border-color: white !important;
+}
+
+.table-session {
+    border: 1px solid white !important;
+    border-radius: 10% !important; /* Votre demande */
+    border-collapse: separate !important; /* Obligatoire pour le radius */
+    border-spacing: 0; /* Évite les espaces vides entre les cellules après le separation */
+    overflow: hidden; /* Assure que le contenu ne dépasse pas des coins arrondis */
+}
+
+/* Pour arrondir les coins des premières et dernières cellules (sinon le radius ne se voit pas) */
+.table-session tr:first-child th:first-child { border-top-left-radius: 10%; }
+.table-session tr:first-child th:last-child { border-top-right-radius: 10%; }
+.table-session tr:last-child td:first-child { border-bottom-left-radius: 10%; }
+.table-session tr:last-child td:last-child { border-bottom-right-radius: 10%; }
+
+.data-session {
+    border: 2px solid #4b1c71;
+    border-radius: 5px;
+}
+
+
+.data-session .sh {
+    margin: 0 10px;
+    border-bottom: 2px solid #4b1c71;
+}
+
+.data-session .sb {
+    margin: 0 10px;
+}
+
+
+
+
