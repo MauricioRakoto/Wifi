@@ -120,93 +120,162 @@ const Utiliser = () => {
 
     return (
         <div className="p-2">
-            <div className="d-flex justify-content-between align-items-center mb-4">
+            <div className="total d-flex justify-content-between align-items-center mb-4">
                 <div className="d-flex gap-2">
                     {/* Badge Volume Global en temps réel */}
-                    <div className="d-flex align-items-center px-3 rounded-3 shadow-sm">
-                        <Database size={16} className="me-2"/> Réseau : {calculerVolumeGlobal()}
+                    <div className="stats d-flex align-items-center px-3 rounded-3 shadow-sm">
+                        <Database size={18} className="me-2"/>
+                        <h3>Données: {calculerVolumeGlobal()}</h3>
                     </div>
-                    <div className="bg-opacity-10  d-flex align-items-center px-3 rounded-3 shadow-sm">
-                        {sessions.length} Poste(s) en ligne
+                    <div className="stats bg-opacity-10  d-flex align-items-center px-3 rounded-3 shadow-sm">
+                        <Monitor size={18}/>
+                        <h3>{sessions.length} Postes connectés</h3>
                     </div>
-                    <button onClick={fetchSessions} className="btn btn-outline-secondary rounded-3">
-                        <RefreshCw size={18} className={loading ? 'spin' : ''} />
-                    </button>
+
                 </div>
             </div>
 
-            <div className="card border-0 shadow-sm rounded-4 overflow-hidden" style={{ minHeight: '400px' }}>
-                {loading ? (
-                    <div className="d-flex flex-column align-items-center justify-content-center flex-grow-1" style={{ height: '400px' }}>
-                        <Loader2 size={45} className="text-primary spin mb-3" />
-                        <span className="text-muted fw-medium">Actualisation des sessions...</span>
+            {/* --- TABLEAU DES DONNÉES --- */}
+            <div className="data-session">
+                {/* En-tête des colonnes (Masqué sur mobile) */}
+                <div className="row sh infoh px-4 py-2 text-muted small fw-normal d-none d-md-flex  mb-2">
+                    <div className="col-1 pr">
+                        <h4 className="patl1">#</h4>
                     </div>
-                ) : (
-                    <div className="table-responsive">
-                        <table className="table table-hover align-middle mb-0">
-                            <thead className="bg-light text-muted small text-muted">
-                            <tr className="text-uppercase">
-                                <th className="px-4 py-3 border-0 fw-normal">Appareil</th>
-                                <th className="py-3 border-0 text-center">Début</th>
-                                <th className="py-3 border-0 text-center">Fin</th>
-                                <th className="py-3 border-0 text-end px-4">Durée</th>
-                                <th className="py-3 border-0 text-end px-4">Prix</th>
-                                <th className="py-3 border-0 text-end px-4">Volume</th>
-                                <th className="py-3 border-0 text-end px-4"></th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            {sessions.length === 0 ? (
-                                <tr>
-                                    <td colSpan="7" className="text-center py-5 text-muted">Aucune session active.</td>
-                                </tr>
-                            ) : (
-                                sessions.map((session) => {
-                                    const [h, m] = session.debutHeure.split(':').map(Number);
-                                    const debut = new Date(); debut.setHours(h, m, 0);
-                                    const mins = Math.floor((tempsActuel - debut) / 60000);
+                    <div className="col pr">
+                        <h4 className="patl1">Appareil</h4>
+                    </div>
+                    <div className="col pr">
+                        <h4 className="patl1">Système</h4>
+                    </div>
+                    <div className="col pr">
+                        <h4 className="patl1">Début</h4>
+                    </div>
+                    <div className="col pr">
+                        <h4 className="patl1">Fin</h4>
+                    </div>
+                    <div className="col pr">
+                        <h4 className="patl1">Durée</h4>
+                    </div>
+                    <div className="col pr">
+                        <h4 className="patl1">Prix</h4>
+                    </div>
+                    <div className="col pr">
+                        <h4 className="patl1">Volume</h4>
+                    </div>
+                    <div className="col pr">
+                        <h4 className="patl1"></h4>
+                    </div>
+                </div>
 
-                                    return (
-                                        <tr key={session.id}>
-                                            <td className="px-4 py-3 fw-bold">
-                                                <div className="d-flex align-items-center gap-3">
-                                                    <div className="bg-primary bg-opacity-10 p-2 rounded-3 text-primary"><Monitor size={18}/></div>
-                                                    <div>
-                                                        <div className="text-dark">{session.nomAppareil}</div>
-                                                        <div className="small text-muted fw-normal">{session.systeme}</div>
+                <div className="card border-0 shadow-sm rounded-4 overflow-hidden bg-transparent"
+                     style={{minHeight: '400px'}}>
+                    {loading ? (
+                        <div className="d-flex flex-column align-items-center justify-content-center flex-grow-1"
+                             style={{height: '400px'}}>
+                            <Loader2 size={45} className="text-primary spin mb-3"/>
+                            <span className="text-muted fw-medium">Actualisation des sessions...</span>
+                        </div>
+                    ) : (
+                        <div className="data-sessions">
+
+                            {/* Liste des sessions dynamiques */}
+                            {sessions.length === 0 ? (
+                                <div className="text-center py-5 text-muted bg-white rounded-4 shadow-sm">
+                                    Aucune session active actuellement.
+                                </div>
+                            ) : (
+                                <div className="d-flex flex-column gap-2">
+                                    {sessions.map((session, index) => {
+                                        // Calcul du temps écoulé pour le prix et le volume
+                                        const [h, m] = session.debutHeure.split(':').map(Number);
+                                        const debut = new Date();
+                                        debut.setHours(h, m, 0);
+                                        const mins = Math.max(0, Math.floor((tempsActuel - debut) / 60000));
+
+                                        return (
+                                            <div key={session.id}
+                                                 className="row sb session-time">
+                                                {/* Index */}
+                                                <div className="col-1 pr">
+                                                    <h6 className="patl2">{index + 1}</h6>
+                                                </div>
+
+                                                {/* Appareil */}
+                                                <div className="col pr">
+                                                    <h6 className="patl2">{session.nomAppareil}</h6>
+
+                                                </div>
+
+                                                {/* Système */}
+                                                <div className="col pr">
+                                                    <h6 className="patl2">{session.systeme || "Windows"}</h6>
+                                                </div>
+
+                                                {/* Début */}
+                                                <div className="col pr">
+                                                    <h6 className="patl2">{session.debutHeure}</h6>
+                                                </div>
+
+                                                {/* Fin */}
+                                                <div
+                                                    className="col pr">
+                                                    <h6 className="col patl2">{session.finHeure || "--:--"}</h6>
+                                                </div>
+
+                                                {/* Durée Dynamique */}
+                                                <div className="col pr">
+                                                    <h6 className="patl2">{calculerDureeDynamique(session)}</h6>
+                                                </div>
+
+                                                {/* Prix Dynamique */}
+                                                <div className="col pr">
+                                                    <h6 className="patl2">{(mins * 35).toLocaleString()} Ar</h6>
+                                                </div>
+
+                                                {/* Volume Dynamique */}
+                                                <div className="col pr">
+                                                    <h6 className="patl2">{(mins * 1.5).toFixed(1)} Mo</h6>
+                                                </div>
+
+                                                {/* Actions */}
+                                                <div className="col pr">
+                                                    <div className="patl2" style={{display: 'flex'}}>
+                                                        <button
+                                                            onClick={() => handleTerminate(session.id, session)}
+                                                            className="btn btn-standard"
+                                                            title="Arrêter"
+                                                        >
+                                                            <Power size={18}/>
+                                                        </button>
+                                                        <button
+                                                            onClick={() => handleDelete(session.id)}
+                                                            className="btn btn-standard"
+                                                            title="Supprimer"
+                                                        >
+                                                            <Trash2 size={18}/>
+                                                        </button>
                                                     </div>
                                                 </div>
-                                            </td>
-                                            <td className="py-3 text-center">{session.debutHeure}</td>
-                                            <td className="py-3 text-center">
-                                                    <span >
-                                                        {session.finHeure}
-                                                    </span>
-                                            </td>
-                                            <td className="py-3 text-center">
-                                                {calculerDureeDynamique(session)}
-                                            </td>
-                                            <td className="py-3 text-center ">
-                                                {(mins * 35).toLocaleString()} Ar
-                                            </td>
-                                            <td className="py-3 text-center">
-                                                {(mins * 1.5).toFixed(1)} Mo
-                                            </td>
-                                            <td className="py-3 text-end px-4">
-                                                <div className="d-flex justify-content-end gap-1">
-                                                    <button onClick={() => handleTerminate(session.id, session)} className="btn btn-outline-warning btn-sm rounded-3 border-0 bg-light-hover" title="Arrêter"><Power size={18}/></button>
-                                                    <button onClick={() => handleDelete(session.id)} className="btn btn-outline-danger btn-sm rounded-3 border-0 bg-light-hover" title="Supprimer"><Trash2 size={18}/></button>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    );
-                                })
+                                            </div>
+                                        );
+                                    })}
+                                </div>
                             )}
-                            </tbody>
-                        </table>
-                    </div>
-                )}
+                        </div>
+                    )}
+
+                    <style>{`
+        .hover-row { transition: all 0.2s ease; cursor: default; }
+        .hover-row:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.08) !important; }
+        .bg-light-hover:hover { background-color: #f8f9fa !important; transform: scale(1.1); }
+        .spin { animation: spin 1s linear infinite; }
+        @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+    `}</style>
+                </div>
             </div>
+
+
 
             <style>{`
                 @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }

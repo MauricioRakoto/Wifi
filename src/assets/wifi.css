@@ -121,6 +121,163 @@ main .card-stats h2 {
     margin: 0 10px;
 }
 
+.top {
+
+}
+
+.top button.btn-session {
+    background: none;
+    border: 2px solid #4b1c71;
+    transition: 1s ease-in-out;
+}
+
+.top button.btn-session:hover {
+    background: #bfd7ed;
+    color: #4b1c71;
+}
+
+.data-session .poste {
+    height: 50px;
+
+}
+
+.data-session .infoh {
+    height: 40px;
+}
+
+.data-session .infoh h4 {
+    font-size: 20px;
+}
+
+.data-session .infob button.btn-start {
+    font-size: 14px;
+    width: 120px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border: 2px solid #4b1c71;
+}
+
+.data-session .infob button.btn-standard {
+    width: 30px;
+    height: 30px;
+    position: relative;
+
+}
+
+.data-session .infob button.btn-standard svg {
+    position: absolute;
+    top: 6px;
+    left: 5px;
+    width: 20px;
+}
+
+.madd {
+    background: none;
+    z-index: 1050;
+    height: 1000px;
+}
+
+.madd .mc {
+    width: 300px;
+    background: #ffffff;
+}
+
+.madd .mc .modal-header {
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+}
+
+.madd .mc .modal-header button {
+    border: 2px solid #4b1c71;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+}
+
+.madd .mc .modal-body .form-label {
+    position: relative;
+    height: 30px;
+    display: block;
+    margin-bottom: 0;
+}
+
+.madd .mc .modal-body .form-label h4 {
+    position: absolute;
+    top: -2px;
+    left: 0;
+    font-size: 16px;
+}
+
+.madd .mc .modal-body input.form-control,
+.madd .mc .modal-body select.form-select {
+    margin-bottom: 20px;
+    border: 2px solid #7f4ca5;
+}
+
+.madd .mc .modal-footer button {
+    height: 40px;
+    background: #4b1c71;
+    font-size: 14px;
+    border: 0;
+}
+
+.madd .mc .modal-body .times button {
+    width: 100px;
+    border: 2px solid #4b1c71;
+    color: #000000;
+    font-size: 12px;
+}
+
+.madd .mc .modal-body .times button.btn-success,
+.madd .mc .modal-body .times button:hover {
+    background: #bfd7ed;
+    color: #000000;
+}
+
+.pr {
+    position: relative;
+}
+
+.pr .patl {
+    position: absolute;
+    top: -20px;
+    left: 0;
+}
+
+.pr .patl1 {
+    position: absolute;
+    top: -5px;
+    left: 0;
+}
+
+
+.session-time .patl2 {
+    top: 0;
+    left: 0;
+    position: absolute;
+}
+
+.session-time .col {
+    margin-right: 20px;
+}
+
+.total .stats {
+    width: 250px;
+    height: 50px;
+    border: 2px solid #4b1c71;
+    display: flex;
+    justify-content: space-between;
+}
+
+.total .stats h3 {
+    font-size: 20px;
+}
+
+
+
 
 
 

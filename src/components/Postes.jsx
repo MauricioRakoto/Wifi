@@ -102,99 +102,161 @@ const Postes = () => {
     return (
         <div className="p-2">
             {/* EN-TÊTE */}
-            <div className="d-flex justify-content-between align-items-center mb-4">
+            <div className="top d-flex justify-content-between align-items-center mb-4">
                 <div className="d-flex gap-2">
-                    <button onClick={() => setShowAddModal(true)} className="btn btn-primary rounded-3 d-flex align-items-center gap-2 shadow-sm">
-                        <Plus size={18} /> Nouveau Poste
+                    <button onClick={() => setShowAddModal(true)} className="btn btn-session  d-flex align-items-center ">
+                        <Plus size={18} /> Nouveau
                     </button>
-                    <button onClick={fetchPostes} className="btn btn-outline-secondary rounded-3">
-                        <RefreshCw size={18} className={loading ? 'spin' : ''} />
-                    </button>
+
                 </div>
             </div>
 
-            {/* CONTENU PRINCIPAL */}
-            <div className="card border-0 shadow-sm rounded-4 overflow-hidden" style={{ minHeight: '300px' }}>
-                {loading ? (
-                    <div className="d-flex flex-column align-items-center justify-content-center flex-grow-1" style={{ height: '300px' }}>
-                        <Loader2 size={40} className="text-primary spin mb-3" />
-                        <span className="text-muted fw-medium">Récupération des postes...</span>
+            {/* --- TABLEAU DES DONNÉES --- */}
+            <div className="data-session">
+                {/* En-tête des colonnes (Masqué sur mobile) */}
+                <div className="row sh infoh px-4 py-2 text-muted small fw-normal d-none d-md-flex  mb-2">
+                    <div className="col-1 pr">
+                        <h4 className="patl1">#</h4>
                     </div>
-                ) : (
-                    <div className="table-responsive">
-                        <table className="table align-middle mb-0">
-                            <thead className="bg-light small">
-                            <tr>
-                                <th className="px-4 py-3 border-0">Appareil</th>
-                                <th className="border-0">Système</th>
-                                <th className="text-end px-4 border-0">Actions</th>
-                            </tr>
-                            </thead>
-                            <tbody>
+                    <div className="col pr">
+                        <h4 className="patl1">Appareil</h4>
+                    </div>
+                    <div className="col pr">
+                        <h4 className="patl1">Système</h4>
+                    </div>
+                    <div className="col"></div>
+                </div>
+
+                <div className="card border-0 shadow-sm rounded-4 overflow-hidden bg-transparent"
+                     style={{minHeight: '300px'}}>
+                    {loading ? (
+                        <div className="d-flex flex-column align-items-center justify-content-center flex-grow-1"
+                             style={{height: '300px'}}>
+                            <Loader2 size={40} className="text-primary spin mb-3"/>
+                            <span className="text-muted fw-medium">Récupération des postes...</span>
+                        </div>
+                    ) : (
+                        <div className="row sb">
+                            {/* En-tête des colonnes (Masqué sur mobile) */}
+
+
+                            {/* Liste des postes */}
                             {postes.length === 0 ? (
-                                <tr>
-                                    <td colSpan="3" className="text-center py-5 text-muted">Aucun poste enregistré.</td>
-                                </tr>
+                                <div className="text-center py-5 text-muted bg-white rounded-4 shadow-sm">
+                                    Aucun poste enregistré.
+                                </div>
                             ) : (
-                                postes.map((poste) => (
-                                    <tr key={poste.id}>
-                                        <td className="px-4 py-3">
-                                            <div className="d-flex align-items-center gap-2">
-                                                <div className="p-2 bg-light rounded-2 text-primary"><Monitor size={16} /></div>
-                                                <span className="fw-bold text-dark">{poste.nom}</span>
+                                <div className="d-flex flex-column gap-2">
+                                    {postes.map((poste, index) => (
+                                        <div key={poste.id}
+                                             className="row align-items-center mx-0 poste infob">
+                                            {/* Index */}
+                                            <div className="col-1 pr">
+                                                <h6 className="text-muted small patl">{index + 1}</h6>
                                             </div>
-                                        </td>
-                                        <td className="text-muted small">{poste.systeme}</td>
-                                        <td className="text-end px-4">
-                                            <button onClick={() => openLaunchModal(poste)} className="btn btn-success btn-sm rounded-3 px-3 me-2 border-0">
-                                                <Play size={14} className="me-1" fill="currentColor" /> Démarrer
-                                            </button>
-                                            <button onClick={() => handleDeletePoste(poste.id)} className="btn btn-outline-danger btn-sm rounded-3 border-0 bg-light-hover">
-                                                <Trash2 size={16} />
-                                            </button>
-                                        </td>
-                                    </tr>
-                                ))
+
+                                            {/* Nom Appareil */}
+                                            <div className="col pr">
+
+                                                <h6 className="fw-bold text-dark patl">{poste.nom}</h6>
+
+                                            </div>
+
+                                            {/* Système */}
+                                            <div className="col pr">
+                                                <h6 className="patl text-secondary">{poste.systeme}</h6>
+                                            </div>
+
+                                            {/* Actions */}
+                                            <div className="col">
+                                                <div className="d-flex justify-content-end gap-2">
+                                                    <button
+                                                        onClick={() => openLaunchModal(poste)}
+                                                        className="btn btn-start"
+                                                    >
+                                                        <Play size={14} fill="currentColor"/>
+                                                        <span>Démarrer</span>
+                                                    </button>
+
+                                                    <button
+                                                        onClick={() => handleDeletePoste(poste.id)}
+                                                        className="btn btn-standard"
+                                                    >
+                                                        <Trash2 size={16}/>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    ))}
+                                </div>
                             )}
-                            </tbody>
-                        </table>
-                    </div>
-                )}
+                        </div>
+                    )}
+
+                    <style>{`
+        .bg-light-hover:hover { background-color: #ffeef0 !important; color: #dc3545 !important; transition: 0.3s; }
+        .hover-row { transition: transform 0.2s ease; border: 1px solid transparent; }
+        .hover-row:hover { transform: scale(1.01); border-color: rgba(13, 110, 253, 0.1); }
+        @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+        .spin { animation: spin 1s linear infinite; }
+    `}</style>
+                </div>
             </div>
+
+
 
             {/* --- MODAL : AJOUTER UN POSTE --- */}
             {showAddModal && (
-                <div className="modal d-block" style={{ backgroundColor: 'rgba(0,0,0,0.5)', zIndex: 1050 }}>
+                <div className="modal madd d-block">
                     <div className="modal-dialog modal-dialog-centered">
-                        <div className="modal-content border-0 shadow-lg rounded-4">
+                        <div className="modal-content mc">
                             <form onSubmit={handleSavePoste}>
-                                <div className="modal-header bg-primary text-white border-0 py-3">
+                                <div className="modal-header ">
                                     <h5 className="modal-title fw-bold d-flex align-items-center gap-2">
-                                        <Plus size={20}/> Nouveau Poste
+                                        Nouveau Poste
                                     </h5>
-                                    <button type="button" className="btn-close btn-close-white" onClick={() => setShowAddModal(false)}></button>
+                                    <button type="button" className=""
+                                            onClick={() => setShowAddModal(false)}>
+                                        <X size={16} />
+                                    </button>
                                 </div>
-                                <div className="modal-body p-4">
-                                    <div className="mb-3">
-                                        <label className="form-label small fw-bold">Nom du poste (Ex: PC-01)</label>
-                                        <input type="text" className="form-control rounded-3 py-2" required value={newPoste.nom} onChange={(e) => setNewPoste({...newPoste, nom: e.target.value})} placeholder="Entrez le nom..." />
+                                <div className="modal-body">
+                                    <div className="row g-2">
+                                        <label className="form-label fw-bold">
+                                            <h4>Nom du poste </h4>
+                                        </label>
+                                        <input type="text" className="form-control rounded-3 py-2" required
+                                               value={newPoste.nom}
+                                               onChange={(e) => setNewPoste({...newPoste, nom: e.target.value})} placeholder="Entrez le nom..." />
                                     </div>
                                     <div className="row g-2">
-                                        <div className="col-6">
-                                            <label className="form-label small fw-bold">Type</label>
-                                            <select className="form-select rounded-3 py-2" value={newPoste.type} onChange={(e) => setNewPoste({...newPoste, type: e.target.value})}>
-                                                <option value="PC">PC Fixe</option>
-                                                <option value="Laptop">Laptop</option>
-                                            </select>
-                                        </div>
-                                        <div className="col-6">
-                                            <label className="form-label small fw-bold">Système d'exploitation</label>
-                                            <input type="text" className="form-control rounded-3 py-2" value={newPoste.systeme} onChange={(e) => setNewPoste({...newPoste, systeme: e.target.value})} placeholder="Win 10, Linux..." />
-                                        </div>
+
+                                        <label className="form-label small fw-bold">
+                                            <h4>Type</h4>
+                                        </label>
+                                        <select className="form-select rounded-3 py-2" value={newPoste.type}
+                                                onChange={(e) => setNewPoste({...newPoste, type: e.target.value})}>
+                                            <option value="PC">Deskop</option>
+                                            <option value="Laptop">Laptop</option>
+                                            <option value="Laptop">Mobile</option>
+                                            <option value="Laptop">Tablette</option>
+                                        </select>
+
                                     </div>
+                                    <div className="row g-2">
+                                        <label className="form-label small fw-bold">
+                                            <h4>Système d'exploitation</h4>
+                                        </label>
+                                        <input type="text" className="form-control rounded-3 py-2"
+                                               value={newPoste.systeme}
+                                               onChange={(e) => setNewPoste({...newPoste, systeme: e.target.value})}
+                                               placeholder="Win 10, Linux..."/>
+                                    </div>
+
+
                                 </div>
-                                <div className="modal-footer border-0 p-3">
-                                    <button type="submit" className="btn btn-primary w-100 rounded-3 py-2 fw-bold">Enregistrer le poste</button>
+                                <div className="modal-footer border-0">
+                                    <button type="submit" className="btn btn-primary w-100 rounded-3 py-2 fw-bold">Terminer</button>
                                 </div>
                             </form>
                         </div>
@@ -204,22 +266,21 @@ const Postes = () => {
 
             {/* --- MODAL : LANCER LA SESSION --- */}
             {showLaunchModal && (
-                <div className="modal d-block" style={{ backgroundColor: 'rgba(0,0,0,0.6)', zIndex: 1060 }}>
+                <div className="modal d-block madd">
                     <div className="modal-dialog modal-dialog-centered">
-                        <div className="modal-content border-0 shadow-lg rounded-4 overflow-hidden">
+                        <div className="modal-content mc border-0 shadow-lg rounded-4 overflow-hidden">
                             <form onSubmit={handleStartSession}>
-                                <div className="bg-success p-3 text-white d-flex justify-content-between align-items-center">
-                                    <h5 className="fw-bold m-0 d-flex align-items-center gap-2">
-                                        <Play size={20} fill="currentColor"/> Lancer la session
+                                <div className="modal-header">
+                                    <h5 className="modal-title fw-bold d-flex align-items-center gap-2">Lancer la session
                                     </h5>
-                                    <button type="button" className="btn text-white p-0 border-0" onClick={() => setShowLaunchModal(false)}>
-                                        <X size={24} />
+                                    <button type="button" className="" onClick={() => setShowLaunchModal(false)}>
+                                        <X size={16} />
                                     </button>
                                 </div>
-                                <div className="modal-body p-4 text-center">
-                                    <p className="text-muted small mb-4">Poste : <span className="badge bg-light text-dark border px-3 py-2 rounded-pill fw-bold">{selectedPoste?.nom}</span></p>
-                                    <div className="row g-2">
-                                        {["15 Min", "30 Min", "45 Min", "90 Min", "1 Heure", "No Limite"].map((label) => (
+                                <div className="modal-body p-4">
+                                    <h5 className="text-muted small mb-4">Appareil : {selectedPoste?.nom}</h5>
+                                    <div className="row g-2 times">
+                                        {["15 Min", "30 Min", "45 Min", "90 Min", "1 Heure", "Libre"].map((label) => (
                                             <div className="col-4" key={label}>
                                                 <button
                                                     type="button"
@@ -231,8 +292,8 @@ const Postes = () => {
                                             </div>
                                         ))}
                                         <div className="col-12 mt-4">
-                                            <button type="submit" className="btn btn-dark w-100 py-3 rounded-3 fw-bold d-flex align-items-center justify-content-center gap-2" disabled={!selectedDuration}>
-                                                CONFIRMER LE LANCEMENT
+                                            <button style={{border: '0', background: '#4b1c71', color: '#ffffff'}} type="submit" className="btn btn-submit w-100 py-2 fw-bold" disabled={!selectedDuration}>
+                                                Confirmer
                                             </button>
                                         </div>
                                     </div>
