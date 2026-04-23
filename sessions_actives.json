@@ -100,12 +100,13 @@
     "id": 1776667915210,
     "nomAppareil": "Phone 1",
     "debutHeure": "09:51",
-    "finHeure": "10:21",
+    "finHeure": "17:23",
     "dureeSelectionnee": "Libre",
-    "status": "En cours",
-    "prixTotal": 0,
-    "volumeTotal": "0.000",
-    "createdAt": "2026-04-20T06:51:55.210Z"
+    "status": "Terminé",
+    "prixTotal": 15820,
+    "volumeTotal": "0.662",
+    "createdAt": "2026-04-22T14:23:51.817Z",
+    "dureeMinutes": 452
   },
   {
     "id": 1776723846365,
@@ -130,5 +131,29 @@
     "volumeTotal": "0.022",
     "createdAt": "2026-04-22T11:17:28.387Z",
     "dureeMinutes": 15
+  },
+  {
+    "id": 1776867480796,
+    "nomAppareil": "Iphone",
+    "debutHeure": "17:18",
+    "finHeure": "17:33",
+    "dureeSelectionnee": "Libre",
+    "status": "Terminé",
+    "prixTotal": 525,
+    "volumeTotal": "0.022",
+    "createdAt": "2026-04-22T14:33:04.847Z",
+    "dureeMinutes": 15
+  },
+  {
+    "id": 1776934372513,
+    "nomAppareil": "Iphone",
+    "debutHeure": "11:52",
+    "finHeure": "12:09",
+    "dureeSelectionnee": "Libre",
+    "status": "Terminé",
+    "prixTotal": 595,
+    "volumeTotal": "0.025",
+    "createdAt": "2026-04-23T09:09:54.151Z",
+    "dureeMinutes": 17
   }
 ]

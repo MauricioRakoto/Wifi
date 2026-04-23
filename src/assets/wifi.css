@@ -253,6 +253,11 @@ main .card-stats h2 {
     left: 0;
 }
 
+.session-time {
+    height: 50px;
+    margin-bottom: 10px;
+}
+
 
 .session-time .patl2 {
     top: 0;
@@ -265,7 +270,7 @@ main .card-stats h2 {
 }
 
 .total .stats {
-    width: 250px;
+    width: 300px;
     height: 50px;
     border: 2px solid #4b1c71;
     display: flex;
@@ -274,6 +279,116 @@ main .card-stats h2 {
 
 .total .stats h3 {
     font-size: 20px;
+}
+
+
+.cons-data h3 {
+    font-size: 25px;
+    font-weight: 700;
+}
+
+.cons-data .data-opt .badge {
+    width: 180px;
+    height: 40px;
+    color: #000000;
+    font-size: 14px;
+    border: 2px solid #4b1c71;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.load-icone {
+    width: 30px;
+    height: 30px;
+    /* On applique l'animation */
+    animation: spin 1s linear infinite;
+    /* Optionnel : assure que l'icône tourne autour de son centre */
+    transform-origin: center;
+}
+
+/* Définition du mouvement de rotation */
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.charts {
+    background: none;
+    border: 0;
+}
+
+.charts .calandrier {
+    width: 350px;
+    background: #4b1c71;
+}
+
+.table-container-rounded {
+    border-radius: 15px; /* L'arrondi que vous souhaitez */
+    overflow: hidden;    /* TRÈS IMPORTANT : coupe les coins carrés du tableau */
+    border: 1px solid #dee2e6; /* Une bordure légère pour voir l'arrondi */
+    background-color: white;
+}
+
+/* On s'assure que le tableau n'a pas de bordures qui entrent en conflit */
+.table-container-rounded table {
+    border-collapse: separate;
+    border-spacing: 0;
+}
+
+/* Force le calendrier à ne jamais dépasser son parent */
+.custom-calendar.react-calendar {
+    width: 100% !important;
+    max-width: 100% !important;
+    background: transparent;
+    border: none !important;
+    font-family: inherit;
+}
+
+/* Ajuste la taille des cases pour qu'elles restent proportionnelles */
+.react-calendar__viewContainer {
+    padding: 0;
+}
+
+.react-calendar__month-view__days {
+    display: grid !important;
+    grid-template-columns: repeat(7, 1fr); /* Utilise la grille pour plus de stabilité */
+}
+
+.react-calendar__tile {
+    padding: 10px 5px !important; /* Réduit le padding interne */
+    height: auto;
+    aspect-ratio: 1 / 1; /* Garde les cases carrées */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Empêche le texte des jours (LUN, MAR...) de forcer la largeur */
+.react-calendar__month-view__weekdays__weekday abbr {
+    text-decoration: none;
+    font-size: 0.75rem;
+    text-transform: lowercase;
+}
+
+/* Cibler les en-têtes des jours de la semaine */
+.react-calendar__month-view__weekdays__weekday {
+    text-transform: lowercase !important; /* Force le minuscule */
+    font-weight: 500;
+}
+
+.react-calendar__month-view__weekdays__weekday abbr {
+    text-decoration: none !important; /* Enlève le souligné des jours */
+    cursor: default;
+}
+
+/* S'assurer que le calendrier reste compact */
+.react-calendar__month-view__weekdays {
+    padding: 0.5rem 0;
 }
 
 
