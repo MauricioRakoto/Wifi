@@ -118,6 +118,18 @@ const Utiliser = () => {
         }
     };
 
+    const calculerVolumeSession = (debutHeure) => {
+        const [h, m] = debutHeure.split(':').map(Number);
+        const debut = new Date();
+        debut.setHours(h, m, 0);
+
+        let diffMs = tempsActuel - debut;
+        if (diffMs < 0) diffMs += 24 * 60 * 60 * 1000; // Gestion passage de minuit
+
+        const minutes = Math.floor(diffMs / 60000);
+        return (minutes * 1.5).toFixed(1); // Retourne le volume en Mo
+    };
+
     return (
         <div className="p-2">
             <div className="total d-flex justify-content-between align-items-center mb-4">
@@ -188,6 +200,7 @@ const Utiliser = () => {
                                 <div className="d-flex flex-column gap-2">
                                     {sessions.map((session, index) => {
                                         // Calcul du temps écoulé pour le prix et le volume
+                                        const volumeMo = calculerVolumeSession(session.debutHeure);
                                         const [h, m] = session.debutHeure.split(':').map(Number);
                                         const debut = new Date();
                                         debut.setHours(h, m, 0);
@@ -230,12 +243,12 @@ const Utiliser = () => {
 
                                                 {/* Prix Dynamique */}
                                                 <div className="col pr">
-                                                    <h6 className="patl2">{(mins * 35).toLocaleString()} Ar</h6>
+                                                    <h6 className="patl2">{(mins * 47).toLocaleString()} Ar</h6>
                                                 </div>
 
                                                 {/* Volume Dynamique */}
                                                 <div className="col pr">
-                                                    <h6 className="patl2">{(mins * 1.5).toFixed(1)} Mo</h6>
+                                                    <h6 className="patl2">{volumeMo} Mo</h6>
                                                 </div>
 
                                                 {/* Actions */}

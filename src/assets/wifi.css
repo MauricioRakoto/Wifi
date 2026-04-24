@@ -1,15 +1,44 @@
+aside {
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;   // Toute la hauteur de l'écran
+    width: 260px;  // Largeur fixe (à ajuster selon votre design)
+    z-index: 1000;
+}
+
 .navwifi {
     width: 250px;
+    background: #bfd7ed;
+}
+
+.navwifi a,
+.navwifi a.nav-active {
+    height: 40px;
+    margin-bottom: 10px;
+    transition: 1s ease-in-out;
+}
+
+.navwifi a,
+.navwifi a.nav-active {
+    color: #000000;
+}
+
+.navwifi a.nav-active,
+.navwifi a:hover {
+    border: 2px solid #4b1c71;
+    color: #000000;
+}
+
+.navwifi a.bg-white {
     background: #4b1c71;
 }
 
-.navwifi a {
-    height: 40px;
-    margin-bottom: 10px;
-}
-
 main {
-    background: #bfd7ed;
+
+    background: #ffffff;
 }
 
 main header {
@@ -17,12 +46,28 @@ main header {
 }
 
 main .wifi {
-    background: #60a3d9;
+    position: absolute;
+    left: 280px;
+    background: #bfd7ed;
 }
 
 main .card-stats {
-    background: none;
-    border: 2px solid #7f4ca5;
+    width: 250px;
+    background: #ffffff;
+
+}
+
+main .card-stats .icone {
+    border: 2px solid #4b1c71;
+}
+
+main .card-stats .title {
+    position: relative;
+}
+
+main .card-stats .title .t2 {
+    position: absolute;
+    right: 0;
 }
 
 main .card-stats h3 {
@@ -109,6 +154,7 @@ main .card-stats h2 {
 .data-session {
     border: 2px solid #4b1c71;
     border-radius: 5px;
+    width: 780px;
 }
 
 
@@ -389,6 +435,15 @@ main .card-stats h2 {
 /* S'assurer que le calendrier reste compact */
 .react-calendar__month-view__weekdays {
     padding: 0.5rem 0;
+}
+
+.animate-fade-in .ab1,
+.animate-fade-in .ab2 {
+    width: 790px;
+}
+
+.ab2 .options {
+    display: flex;
 }
 
 

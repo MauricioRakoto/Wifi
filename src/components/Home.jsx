@@ -48,59 +48,73 @@ const Home = () => {
     };
 
     return (
-        <div className="">
+        <div className="p-2">
 
             {/* --- SECTION DIVISIONS (Statistiques) --- */}
-            <div className="row g-4 mb-5">
-                <div className="col-md-4">
-                    <div className="card card-stats rounded-4 p-4">
-                        <div className="d-flex justify-content-between align-items-center">
+            <div className="row g-4 mb-2" style={{display: 'flex', gap: '15px', marginLeft: '4px'}}>
+                <div className="card card-stats rounded-4 p-4">
+                        <div className="d-flex justify-content-between">
 
-                            <div className="p-3 bg-opacity-10 rounded-4">
+                            <div className="icone p-3 bg-opacity-10 rounded-4">
                                 <Monitor size={28}/>
                             </div>
 
                             <div>
-                                <h3 className="small fw-bold">Postes </h3>
-                                <h2 className="fw-bold mb-0">{stats.totalPostes}</h2>
+                                <div className="title">
+                                    <div className="t1">
+                                        <h3 className="small fw-bold">Postes </h3>
+                                    </div>
+                                    <div className="t2">
+                                        <h2 className="fw-bold mb-0">{stats.totalPostes}</h2>
+                                    </div>
+
+
+                                </div>
+
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <div className="col-md-4">
-                    <div
+                <div
                         className="card card-stats rounded-4 p-4 ">
-                        <div className="d-flex justify-content-between align-items-center">
+                        <div className="d-flex justify-content-between">
 
-                            <div className="p-3 bg-opacity-10 ">
+                            <div className="icone p-3 bg-opacity-10 rounded-4">
                                 <Activity size={28}/>
                             </div>
 
-                            <div>
-                                <h3 className="small fw-bold">Actifs</h3>
-                                <h2 className="fw-bold mb-0 ">{stats.actifs}</h2>
+                            <div className="title">
+                                <div className="t1">
+                                    <h3 className="small fw-bold">Actifs</h3>
+                                </div>
+                                <div className="t2">
+                                    <h2 className="fw-bold mb-0 ">{stats.actifs}</h2>
+                                </div>
+
+
                             </div>
                         </div>
                     </div>
-                </div>
+                <div className="card card-stats  rounded-4 p-4  ">
+                        <div className="d-flex justify-content-between">
 
-
-                <div className="col-md-4">
-                    <div className="card card-stats  rounded-4 p-4  ">
-                        <div className="d-flex justify-content-between align-items-center">
-
-                            <div className="p-3 bg-opacity-10 rounded-4">
+                            <div className="icone p-3 bg-opacity-10 rounded-4">
                                 <Database size={28}/>
                             </div>
 
-                            <div>
-                                <h3 className="small fw-bold">Volumes</h3>
-                                <h2 className="fw-bold mb-0">{stats.volumeTotal}</h2>
+                            <div className="title">
+                                <div className="t1">
+                                    <h3 className="small fw-bold">Volumes</h3>
+                                </div>
+                                <div className="t2">
+                                    <h2 className="fw-bold mb-0">{stats.volumeTotal}</h2>
+                                </div>
+
+
                             </div>
                         </div>
                     </div>
-                </div>
+
             </div>
 
             {/* --- NAVIGATION / ONGLETS --- */}

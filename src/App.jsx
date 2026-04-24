@@ -1,12 +1,25 @@
 import React, { useState, useEffect } from 'react';
-import { UserCircle, LayoutDashboard, Monitor, PlayCircle, BarChart3, Wifi, Loader2 } from 'lucide-react';
+import {
+    UserCircle,
+    LayoutDashboard,
+    Monitor,
+    PlayCircle,
+    BarChart3,
+    Wifi,
+    Loader2,
+    Info,
+    Target,
+    CodeXml
+} from 'lucide-react';
 import { BrowserRouter as Router, Routes, Route, NavLink } from 'react-router-dom';
 import Home from './components/Home';
 import Postes from "./components/Postes.jsx";
 import Utiliser from "./components/Utiliser.jsx";
 import Stats from "./components/Stats.jsx";
+import About from "./components/About.jsx";
+import Help from "./components/Help.jsx";
 
-import wifiIcon from '../src/assets/img/wifi.png';
+import wifiIcon from '../src/assets/img/min.png';
 
 function App() {
     const [isLoading, setIsLoading] = useState(true);
@@ -20,24 +33,20 @@ function App() {
     }, []);
 
     const activeLink = ({ isActive }) =>
-        `nav-link text-white d-flex align-items-center gap-3 p-3 rounded-3 ${isActive ? 'bg-white bg-opacity-25 shadow-sm' : 'hover-effect'}`;
+        `nav-link d-flex align-items-center gap-3 p-3 rounded-3 ${isActive ? 'nav-active' : ''}`;
 
     // --- ÉCRAN DE CHARGEMENT (STYLE WHATSAPP) ---
     if (isLoading) {
         return (
-            <div className="d-flex flex-column align-items-center justify-content-center" style={{ height: '100vh', backgroundColor: '#f8f9fa' }}>
+            <div className="d-flex flex-column align-items-center justify-content-center" style={{ height: '100vh'}}>
                 <div className="position-relative d-flex align-items-center justify-content-center mb-4">
-                    <div className="p-4 rounded-5 shadow-lg animate-bounce">
+                    <div className="bg-transparent">
                         <img src={wifiIcon} alt=""/>
                     </div>
                 </div>
-                <h2 className="fw-bold text-dark mb-2">Wifi<span className="text-primary">Manager</span></h2>
-                <div className="d-flex align-items-center gap-2 text-muted">
-                    <Loader2 size={18} className="spin" />
-                    <span className="small tracking-widest text-uppercase">Chargement...</span>
-                </div>
-                <div className="mt-5 text-muted small opacity-50">
-                    v1.0.2 - 2026 © CyberNet
+                <h2 className="fw-bold text-dark mb-2">WifiManager</h2>
+                <div className="mt-5 text-dark small opacity-50">
+                    v1 - 2026 © WifiManger
                 </div>
             </div>
         );
@@ -50,22 +59,37 @@ function App() {
                 <div className="d-flex" style={{ minHeight: '100vh' }}>
                     {/* Sidebar */}
                     <aside className="navwifi text-white shadow" style={{display: 'flex', flexDirection: 'column'}}>
-                        <div className="p-4 d-flex align-items-center gap-3 border-bottom border-light border-opacity-25">
-                            <div className="bg-white p-2 rounded-3 text-primary d-flex align-items-center">
+                        <div style={{background: '#7bbde8', color: '#000'}} className="p-4 d-flex align-items-center gap-3 border-bottom border-light border-opacity-25">
+                            <div className="p-2 rounded-3 text-primary d-flex align-items-center">
                                 <img style={{width: '30px', height: '30px'}} src={wifiIcon} alt=""/>
                             </div>
                             <h1 style={{fontSize: '25px', fontWeight: '500'}} >Wifi Manager</h1>
                         </div>
 
                         <nav className="nav flex-column p-3 gap-2">
-                            <NavLink to="/" className={activeLink}><LayoutDashboard size={20}/><span className="fw-medium">Accueil</span></NavLink>
-                            <NavLink to="/postes" className={activeLink}><Monitor size={20}/><span className="fw-medium">Postes</span></NavLink>
-                            <NavLink to="/utiliser" className={activeLink}><PlayCircle size={20}/><span className="fw-medium">Utiliser</span></NavLink>
-                            <NavLink to="/stats" className={activeLink}><BarChart3 size={20}/><span className="fw-medium">Statistiques</span></NavLink>
+                            <NavLink to="/" className={activeLink}>
+                                <LayoutDashboard size={20}/><span className="fw-medium">Accueil</span>
+                            </NavLink>
+                            <NavLink to="/postes" className={activeLink}><Monitor size={20}/>
+                                <span className="fw-medium">Postes</span>
+                            </NavLink>
+                            <NavLink to="/utiliser" className={activeLink}>
+                                <PlayCircle size={20}/>
+                                <span className="fw-medium">Utiliser</span>
+                            </NavLink>
+                            <NavLink to="/stats" className={activeLink}><BarChart3 size={20}/>
+                                <span className="fw-medium">Statistiques</span>
+                            </NavLink>
+                            <NavLink to="/about" className={activeLink}>
+                                <CodeXml size={20}/><span className="fw-medium">Apropos</span>
+                            </NavLink>
+                            <NavLink to="/help" className={activeLink}>
+                                <Info size={20}/><span className="fw-medium">Aides</span>
+                            </NavLink>
                         </nav>
 
-                        <div className="mt-auto p-4 border-top border-light border-opacity-10 text-center text-white-50 small">
-                            v1.0.2 - 2026 © CyberNet
+                        <div className="mt-auto p-4 border-top border-light border-opacity-10 text-dark small">
+                            v1 - 2026 © WifiManager
                         </div>
                     </aside>
 
@@ -73,7 +97,7 @@ function App() {
                     <main className="flex-grow-1 d-flex flex-column">
                         <header className="p-3 d-flex justify-content-end align-items-center border-bottom shadow-sm">
                             <div className="d-flex align-items-center gap-2 px-3 py-1 rounded-pill">
-                                <UserCircle size={24} className="text-primary"/>
+                                <UserCircle size={24} className="text-dark"/>
                                 <h4 className="m-0 fw-bold text-dark" style={{fontSize: '0.95rem'}}>Administrateur</h4>
                             </div>
                         </header>
@@ -85,6 +109,8 @@ function App() {
                                     <Route path="/postes" element={<Postes/>}/>
                                     <Route path="/utiliser" element={<Utiliser/>}/>
                                     <Route path="/stats" element={<Stats/>}/>
+                                    <Route path="/about" element={<About/>}/>
+                                    <Route path="/help" element={<Help/>}/>
                                 </Routes>
                             </div>
                         </div>
