@@ -193,7 +193,7 @@ const Utiliser = () => {
 
                             {/* Liste des sessions dynamiques */}
                             {sessions.length === 0 ? (
-                                <div className="text-center py-5 text-muted bg-white rounded-4 shadow-sm">
+                                <div className="text-center py-5 text-muted rounded-4 ">
                                     Aucune session active actuellement.
                                 </div>
                             ) : (

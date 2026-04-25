@@ -35,8 +35,8 @@ const Help = () => {
                         <div className="d-flex flex-column gap-4">
                             {guides.map((item, index) => (
                                 <div key={index}
-                                     className="d-flex gap-3 align-items-start p-3 rounded-3 border-start border-4 border-light hover-guide">
-                                    <div className="p-2 bg-light rounded-2">
+                                     className="d-flex gap-3 align-items-start p-3 rounded-3 border-start border-4">
+                                    <div className="p-2 rounded-2">
                                         {item.icon}
                                     </div>
                                     <div>
@@ -51,7 +51,7 @@ const Help = () => {
 
                 {/* FAQ & Astuces */}
                 <div className="col-12 col-lg-6">
-                    <div className="card border-0 shadow-sm rounded-4 p-4 bg-white mb-4">
+                    <div className="card border-0 shadow-sm rounded-4 p-4 mb-4">
                         <h5 className="fw-bold mb-3 d-flex align-items-center gap-2">
                             <Zap size={20} className="text-warning"/> Astuce Pro
                         </h5>
@@ -79,7 +79,7 @@ const Help = () => {
             <style>{`
                 .hover-guide {
                     transition: all 0.2s ease;
-                    background: #fff;
+                    
                 }
                 .hover-guide:hover {
                     background: #f8f9fa;

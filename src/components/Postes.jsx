@@ -142,7 +142,7 @@ const Postes = () => {
 
                             {/* Liste des postes */}
                             {postes.length === 0 ? (
-                                <div className="text-center py-5 text-muted bg-white rounded-4 shadow-sm">
+                                <div className="text-center py-5 text-muted rounded-4 ">
                                     Aucun poste enregistré.
                                 </div>
                             ) : (

@@ -146,7 +146,7 @@ const Home = () => {
 
                 {/* Corps des données */}
                 {filteredSessions.length === 0 ? (
-                    <div className="text-center py-5 text-muted bg-light rounded-4">
+                    <div className="text-center py-5 text-muted rounded-4">
                         Aucune session {view === 'active' ? 'en cours' : 'terminée'}.
                     </div>
                 ) : (

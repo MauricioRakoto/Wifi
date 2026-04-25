@@ -42,12 +42,84 @@ main {
 }
 
 main header {
-    background: none;
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 260px;
+    height: 65px;
+    z-index: 2000;
+    padding: 0 1.5rem;
 }
+
+main header button {
+    transition: 1s ease-in-out;
+}
+
+main header button:hover svg {
+    color: #bfd7ed;
+}
+
+
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: none;
+    backdrop-filter: blur(2px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 3000;
+}
+
+.modal-content-custom {
+    background: white;
+    width: 35%;
+    max-width: 800px;
+    max-height: 90vh;
+    overflow-y: auto;
+    position: relative;
+}
+
+.modal-overlay .config {
+    border: 2px solid #4b1c71;
+    background: none;
+    border-radius: 10px;
+}
+
+.modal-overlay nav span {
+    color: #ffffff;
+}
+
+.modal-overlay nav a {
+    background: #4b1c71;
+    width: 180px;
+    height: 40px;
+    border-radius: 10px;
+    transition: 1s ease-in-out;
+}
+
+.modal-overlay nav a:hover {
+    background: #bfd7ed;
+}
+
+.animate-slide-up {
+    animation: slideUp 0.3s ease-out;
+}
+@keyframes slideUp {
+    from { transform: translateY(20px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
 
 main .wifi {
     position: absolute;
+    top: 80px;
     left: 280px;
+    width: 830px;
     background: #bfd7ed;
 }
 
@@ -444,6 +516,64 @@ main .card-stats h2 {
 
 .ab2 .options {
     display: flex;
+}
+
+.key {
+    width: 350px;
+}
+
+.key input {
+    border: 2px solid #4b1c71;
+}
+
+.key input:focus {
+    border: 2px solid #bfd7ed;
+}
+
+.key button {
+    height: 50px;
+    background: #4b1c71;
+    color: #ffffff;
+    border-radius: 10px;
+    transition: 1s ease-in-out;
+}
+
+.key button:hover {
+
+    background: #bfd7ed;
+}
+
+.key .key-footer {
+    margin-top: 30px;
+}
+
+.econfig .form-label {
+    display: flex;
+}
+
+.econfig input,
+.econfig select {
+    width: 250px;
+    height: 40px;
+    border: 2px solid #4b1c71;
+    background: none;
+    transition: 1s ease-in-out;
+}
+
+.econfig input:focus {
+    border: 2px solid #bfd7ed;
+    background: none;
+}
+
+.econfig button {
+    width: 250px;
+    height: 40px;
+    background: #4b1c71;
+    color: #ffffff;
+    transition: 1s ease-in-out;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 

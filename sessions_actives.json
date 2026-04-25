@@ -167,5 +167,17 @@
     "volumeTotal": "1.245",
     "createdAt": "2026-04-24T02:09:07.054Z",
     "dureeMinutes": 850
+  },
+  {
+    "id": 1777113369824,
+    "nomAppareil": "Phone 1",
+    "debutHeure": "13:36",
+    "finHeure": "13:36",
+    "dureeSelectionnee": "Libre",
+    "status": "Terminé",
+    "prixTotal": 0,
+    "volumeTotal": "0.000",
+    "createdAt": "2026-04-25T10:36:27.796Z",
+    "dureeMinutes": 0
   }
 ]
