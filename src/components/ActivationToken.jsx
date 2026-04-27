@@ -8,7 +8,7 @@ const ActivationToken = ({ onActivate }) => {
     const handleVerify = () => {
         // Logique de vérification (Exemple: code simple ou logique complexe)
         // Vous pouvez remplacer ceci par un appel API vers votre backend
-        if (code === "Wifi-Exp-2020") {
+        if (code === "wifi-exp-2020") {
             const dateExpiration = new Date();
             dateExpiration.setDate(dateExpiration.getDate() + 30);
 
@@ -39,7 +39,7 @@ const ActivationToken = ({ onActivate }) => {
                 <div className="mb-3">
                     <input
                         type="text"
-                        className={`form-control form-control-lg text-center fw-bold ${error ? 'is-invalid' : ''}`}
+                        className={` text-center ${error ? 'is-invalid' : ''}`}
                         placeholder="XXXX-XXXX-XXXX"
                         value={code}
                         onChange={(e) => { setCode(e.target.value.toUpperCase()); setError(''); }}

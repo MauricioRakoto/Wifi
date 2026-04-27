@@ -518,24 +518,38 @@ main .card-stats h2 {
     display: flex;
 }
 
-.key {
+.config-int h3 {
+    font-size: 25px;
+}
+
+.key,
+.config-int {
     width: 350px;
 }
 
-.key input {
+.key input,
+.config-int input {
     border: 2px solid #4b1c71;
+    text-transform: lowercase;
 }
 
-.key input:focus {
+.key input:focus,
+.config-int input:focus{
     border: 2px solid #bfd7ed;
 }
 
-.key button {
+.key button,
+.config-int button,
+.config-int select {
     height: 50px;
     background: #4b1c71;
     color: #ffffff;
     border-radius: 10px;
     transition: 1s ease-in-out;
+}
+
+.config-int select {
+    color: #000000;
 }
 
 .key button:hover {

@@ -179,5 +179,29 @@
     "volumeTotal": "0.000",
     "createdAt": "2026-04-25T10:36:27.796Z",
     "dureeMinutes": 0
+  },
+  {
+    "id": 1777120251816,
+    "nomAppareil": "Phone 1",
+    "debutHeure": "15:30",
+    "finHeure": "15:53",
+    "dureeSelectionnee": "Libre",
+    "status": "Terminé",
+    "prixTotal": 805,
+    "volumeTotal": "0.034",
+    "createdAt": "2026-04-25T12:53:56.353Z",
+    "dureeMinutes": 23
+  },
+  {
+    "id": 1777267235048,
+    "nomAppareil": "Phone 1",
+    "debutHeure": "08:20",
+    "finHeure": "10:27",
+    "dureeSelectionnee": "Libre",
+    "status": "Terminé",
+    "prixTotal": 4445,
+    "volumeTotal": "0.186",
+    "createdAt": "2026-04-27T07:27:50.286Z",
+    "dureeMinutes": 127
   }
 ]
